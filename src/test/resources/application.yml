@@ -1,0 +1,94 @@
+
+server:
+  port: 9990
+  address: localhost
+  
+#Spring Starts
+spring:
+  profiles:
+    active:
+    - test
+  application:
+    name: estimate-service
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:h2:mem:estimateservice;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    name:
+    username:
+    password:
+    hikari:
+      auto-commit: false  
+  jpa:
+    database-platform: com.dxc.eproc.util.FixedH2Dialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.hbm2ddl.auto: create-drop
+      hibernate.jdbc.time_zone: UTC
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.show-sql: true
+#Spring Ends
+
+opentracing:
+  jaeger:
+    expand-exception-logs: true
+    udp-sender:
+      host: localhost
+      port: 6831
+    enabled: true
+    enable-b3-propagation: true
+    log-spans: true
+    const-sampler:
+      decision: true
+      
+amqphub:
+  amqp10jms:
+    remote-url: amqp://localhost:5671
+
+#eProcurement Properties Starts
+eprocurement:
+  clientApp:
+    name: 'Estimate Services'  
+  cors:
+    allowed-origins: '*'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count'
+    allow-credentials: false
+    max-age: 1800
+  logging:
+    use-json-format: false # By default, logs are not in Json format
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+  mail: # specific Eprocurement mail property, for standard properties see MailProperties
+    base-url: http://localhost:9191
+    jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: YmVlMjVlNGQ0ZGE5ZThmNTQ3YjA5YzcyOTU1NTRmYTA2ZmIxYmQxZjYzMTUxNTE0MzZlODU4OTI2MTk0YTcxZWUxYzI2OWNlYTE0NzFhODg2ZTA4ODMwNjliZDU2ZjYxZjZlN2UzNWI4ZWY0YTZlYmJjZDE2MWZhZjUxNjRkNzE=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000    
+      
+# Feign Client Starts
+kie-server-service:
+  url: http://localhost:9561/rest 
+pki-service:
+  url: http://localhost:9561 
+supplier-service:
+  url: http://localhost:9561
+sor-service:
+  url: http://localhost:9561
+user-service:
+  url: http://localhost:9561

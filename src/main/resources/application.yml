@@ -1,0 +1,79 @@
+
+
+spring:
+  config:    use-legacy-processing: true
+  application:
+    name: estimate-service
+  profiles:
+    # The commented value for `active` can be replaced with valid Spring profiles to load.
+    # Otherwise, it will be filled in by maven when building the JAR file
+    # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+    active: #spring.profiles.active#
+    group:
+      dev:
+        - dev
+  jmx:
+    enabled: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  jackson:
+    serialization:
+      write-durations-as-timestamps: false
+  jpa:
+    open-in-view: false
+    properties:
+      #entity-scan-packages: com.dxc.eproc.generator,com.dxc.eproc.supplier.model
+      hibernate.jdbc.time_zone: UTC
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      # modify batch size as necessary
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallback-to-system-locale: true
+    use-code-as-default-message: false
+    always-use-message-format:  false
+  main:
+    allow-bean-definition-overriding: true 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10240KB
+      max-request-size: 10240KB
+      #location: #
+
+#feign:
+#  client:
+#    config:
+#      feignName:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        loggerLevel: full
+#        errorDecoder: com.dxc.eproc.supplier.config.CustomErrorDecoder
+
+server:
+  address: 0.0.0.0
+  port: 9191
+  servlet:
+    session:
+      cookie:
+        http-only: true
+   
+eprocurement:
+  clientApp:
+    name: 'Estimate-Service'      

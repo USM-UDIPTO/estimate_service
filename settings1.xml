@@ -1,0 +1,70 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+ <servers>
+      <server>
+         <username>svc-eprocurement-maven</username>
+         <password>Cw23@wg45</password>
+         <id>central</id>
+      </server>
+      <server>
+         <username>svc-eprocurement-maven</username>
+         <password>Cw23@wg45</password>
+         <id>snapshots</id>
+      </server>
+   </servers>
+   <profiles>
+      <profile>
+         <repositories>
+            <repository>
+               <id>central1</id>
+               <name>Maven Repository Switchboard</name>
+               <url>https://repo.maven.apache.org/maven2</url>
+            </repository>
+            <repository>
+               <id>central2</id>
+               <name>Maven Repository Switchboard</name>
+               <url>https://maven.repository.redhat.com/ga</url>
+            </repository>
+            <repository>
+               <snapshots>
+                  <enabled>false</enabled>
+               </snapshots>
+               <id>central</id>
+               <name>eprocurement-maven</name>
+               <url>https://artifactory.dxc.com:443/artifactory/eprocurement-maven</url>
+            </repository>
+            <repository>
+               <snapshots />
+               <id>snapshots</id>
+               <name>eprocurement-maven</name>
+               <url>https://artifactory.dxc.com:443/artifactory/eprocurement-maven</url>
+            </repository>
+         </repositories>
+         <pluginRepositories>
+            <pluginRepository>
+               <id>central1</id>
+               <name>Maven Repository Switchboard</name>
+               <url>https://repo.maven.apache.org/maven2</url>
+            </pluginRepository>
+            <pluginRepository>
+               <snapshots>
+                  <enabled>false</enabled>
+               </snapshots>
+               <id>central</id>
+               <name>eprocurement-maven</name>
+               <url>https://artifactory.dxc.com:443/artifactory/eprocurement-maven</url>
+            </pluginRepository>
+            <pluginRepository>
+               <snapshots />
+               <id>snapshots</id>
+               <name>eprocurement-maven</name>
+               <url>https://artifactory.dxc.com:443/artifactory/eprocurement-maven</url>
+            </pluginRepository>
+         </pluginRepositories>
+         <id>artifactory</id>
+      </profile>
+   </profiles>
+   <activeProfiles>
+      <activeProfile>artifactory</activeProfile>
+   </activeProfiles>
+</settings>
